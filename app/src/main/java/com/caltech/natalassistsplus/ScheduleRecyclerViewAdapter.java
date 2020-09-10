@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class ScheduleRecyclerViewAdapter extends RecyclerView.Adapter<ScheduleRecyclerViewAdapter.ViewHolder> {
 
     ArrayList<Schedule> schedules;
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView scheduleTitleTxt;
         public TextView scheduleDateTxt;
         public ImageView scheduleImg;
