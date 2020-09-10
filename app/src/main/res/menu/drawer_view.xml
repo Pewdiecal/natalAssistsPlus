@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/dashboard_menu"
+            android:icon="@drawable/ic_dashboard_24px"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/confinement_menu"
+            android:icon="@drawable/ic_location_on_24px"
+            android:title="Confinement Center Locator" />
+        <item
+            android:id="@+id/cost_planner_menu"
+            android:icon="@drawable/ic_attach_money_24px"
+            android:title="Cost Planner" />
+        <item
+            android:id="@+id/forum_menu"
+            android:icon="@drawable/ic_forum_24px"
+            android:title="Forum" />
+        <item
+            android:id="@+id/info_menu"
+            android:icon="@drawable/ic_info_24px"
+            android:title="Information Center" />
+        <item
+            android:id="@+id/contraction_menu"
+            android:icon="@drawable/ic_tag_faces_24px"
+            android:title="Contraction Counter" />
+        <item
+            android:id="@+id/kick_menu"
+            android:icon="@drawable/ic_child_care_24px"
+            android:title="Baby Kick Counter" />
+        <item
+            android:id="@+id/alarm_menu"
+            android:icon="@drawable/ic_alarm_24px"
+            android:title="Sleep Cycle Alarm" />
+        <item
+            android:id="@+id/chatroom_menu"
+            android:icon="@drawable/ic_chat_24px"
+            android:title="Chatroom" />
+        <item
+            android:id="@+id/medical_menu"
+            android:icon="@drawable/ic_favorite_24px"
+            android:title="Medical Matters" />
+        <item
+            android:id="@+id/music_menu"
+            android:icon="@drawable/ic_library_music_24px"
+            android:title="Relaxation Music" />
+        <item
+            android:id="@+id/feedback_menu"
+            android:icon="@drawable/ic_icon_alert_error_outline_24px"
+            android:title="Give Feedback" />
+        <item
+            android:id="@+id/massage_menu"
+            android:icon="@drawable/ic_ondemand_video_24px"
+            android:title="Massage Tutorial" />
+
+    </group>
+</menu>
