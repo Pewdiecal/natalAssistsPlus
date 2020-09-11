@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="2dp"
+        app:cardCornerRadius="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/usernameForumRV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="TextView"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cardView"
+                app:layout_constraintTop_toTopOf="@+id/cardView"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/forumTimeRV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_regular"
+                android:text="TextView"
+                app:layout_constraintBottom_toTopOf="@+id/forumDescRV"
+                app:layout_constraintEnd_toEndOf="@+id/usernameForumRV"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/usernameForumRV"
+                app:layout_constraintTop_toBottomOf="@+id/usernameForumRV"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/forumDescRV"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/roboto_regular"
+                android:text="TextView"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/forumPicRV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+            <ImageView
+                android:id="@+id/forumPicRV"
+                android:layout_width="0dp"
+                android:layout_height="204dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toTopOf="@+id/likeBtnForumRV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/forumDescRV"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="72dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintBottom_toTopOf="@+id/forumDescRV"
+                app:layout_constraintEnd_toStartOf="@+id/usernameForumRV"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:strokeWidth="1dp">
+
+                <ImageView
+                    android:id="@+id/userImgForumRV"
+                    android:layout_width="99dp"
+                    android:layout_height="88dp"
+                    android:scaleType="centerCrop"
+                    tools:layout_editor_absoluteX="63dp"
+                    tools:layout_editor_absoluteY="321dp"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/likeBtnForumRV"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Like"
+                android:textColor="@color/colorAccent"
+                app:icon="@drawable/ic_favoriteforum"
+                app:iconTint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/commentBtnForumRV"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/forumPicRV" />
+
+            <Button
+                android:id="@+id/commentBtnForumRV"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Comment"
+                android:textColor="@color/colorAccent"
+                app:icon="@drawable/ic_commentforum"
+                app:iconTint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@+id/likeBtnForumRV"
+                app:layout_constraintEnd_toStartOf="@+id/shareBtnForumRV"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/likeBtnForumRV"
+                app:layout_constraintTop_toTopOf="@+id/likeBtnForumRV" />
+
+            <Button
+                android:id="@+id/shareBtnForumRV"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:text="Share"
+                android:textColor="@color/colorAccent"
+                app:icon="@drawable/ic_shareforum"
+                app:iconTint="@color/colorAccent"
+                app:layout_constraintBottom_toBottomOf="@+id/commentBtnForumRV"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/commentBtnForumRV"
+                app:layout_constraintTop_toTopOf="@+id/commentBtnForumRV" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

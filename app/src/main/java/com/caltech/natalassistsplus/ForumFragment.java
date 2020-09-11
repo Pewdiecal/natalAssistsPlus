@@ -3,62 +3,70 @@ package com.caltech.natalassistsplus;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ForumFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
 public class ForumFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    RecyclerView forumRecyclerView;
+    RecyclerView.LayoutManager forumLayoutManager;
+    ForumRecyclerViewAdapter forumRecyclerViewAdapter;
+    ArrayList<ForumPost> forumPosts = new ArrayList<>();
 
     public ForumFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ForumFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ForumFragment newInstance(String param1, String param2) {
-        ForumFragment fragment = new ForumFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forum, container, false);
+        View view = inflater.inflate(R.layout.fragment_forum, container, false);
+        forumRecyclerView = view.findViewById(R.id.forumRV);
+        forumLayoutManager = new LinearLayoutManager(getContext());
+
+        forumPosts.add(new ForumPost("Josh", R.drawable.user1, "22 hours ago",
+                "Can an adult eat baby food to survive? 😅😅", R.drawable.baby_food));
+        forumPosts.add(new ForumPost("Mark", R.drawable.user2, "30 minutes ago",
+                "Look how this cute new born baby is 😍😍😍", R.drawable.cute_baby));
+        forumPosts.add(new ForumPost("Nicholas", R.drawable.user3, "an hour ago",
+                "I have a new born baby coming, this is actually my first baby," +
+                        "and do you guys have any suggestion on how to name my baby?" +
+                        "Any cute or nice name will do. 😁", 0));
+        forumPosts.add(new ForumPost("Johnny", R.drawable.user4, "3 hours ago",
+                "Does any experienced mum here knows what a pregnancy test look like?", 0));
+        forumPosts.add(new ForumPost("Bob", R.drawable.user5, "10 hours ago",
+                "My baby haven’t pooped for like a week, is that normal? Do " +
+                        "I need to bring him to the doctor?💩💩💩", 0));
+        forumPosts.add(new ForumPost("Noah", R.drawable.user6, "3 days ago",
+                "My wive is having a back pain very frequently lately, does" +
+                        "anyone know what is going on?", R.drawable.back_pain));
+        forumPosts.add(new ForumPost("Nicky", R.drawable.user7, "5 days ago",
+                "Any suggestion on how to cook a nice meal for my wife?", R.drawable.dinner));
+        forumPosts.add(new ForumPost("Tyler", R.drawable.user8, "a week ago",
+                "Is it normal to feel a baby kick often? Does it mean that I'm going" +
+                        "into labour soon?😟😟😟😟", R.drawable.babykick));
+        forumPosts.add(new ForumPost("Johnathan", R.drawable.user9, "4 days ago",
+                "How hot should I make the formula milk for my baby?", 0));
+        forumPosts.add(new ForumPost("Jimmy", R.drawable.user10, "2 days ago",
+                "Is it normal for my wife to have bad mood often during pregnancy?", 0));
+
+        forumRecyclerViewAdapter = new ForumRecyclerViewAdapter(forumPosts);
+        forumRecyclerView.setHasFixedSize(true);
+        forumRecyclerView.setLayoutManager(forumLayoutManager);
+        forumRecyclerView.setAdapter(forumRecyclerViewAdapter);
+
+        return view;
     }
 }
