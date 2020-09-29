@@ -3,62 +3,123 @@ package com.caltech.natalassistsplus;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BabyKickFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class BabyKickFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    RecyclerView babyKickRecyclerView;
+    RecyclerView.LayoutManager babyKickLayoutManager;
+    BabyKickRecyclerViewAdapter babyKickRecyclerViewAdapter;
+    ArrayList<BabyKickCount> babyKickCounts = new ArrayList<>();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    Button kickStartedBtn;
+    Button kickedBtn;
+    TextView timerTxt;
+
+    private int seconds = 0;
+    private boolean running = false;
+    private int kicks = 0;
 
     public BabyKickFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BabyKickFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BabyKickFragment newInstance(String param1, String param2) {
-        BabyKickFragment fragment = new BabyKickFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_baby_kick, container, false);
+        kickStartedBtn = view.findViewById(R.id.kickStartedBtn);
+        kickedBtn = view.findViewById(R.id.kickedBtn);
+        timerTxt = view.findViewById(R.id.babyKickTimerTxt);
+        babyKickRecyclerView = view.findViewById(R.id.babyKickRV);
+        kickedBtn.setEnabled(false);
+
+        babyKickRecyclerViewAdapter = new BabyKickRecyclerViewAdapter(babyKickCounts);
+        babyKickLayoutManager = new LinearLayoutManager(getContext());
+        babyKickRecyclerView.setHasFixedSize(true);
+        babyKickRecyclerView.setAdapter(babyKickRecyclerViewAdapter);
+        runTimer();
+
+        kickStartedBtn.setOnClickListener(v -> {
+            if(kickStartedBtn.getText().toString().equals("Kick Started")){
+                kickedBtn.setEnabled(true);
+                kickStartedBtn.setText("Kick Stopped");
+                running = true;
+                kicks++;
+            } else {
+                babyKickCounts.add(new BabyKickCount("00:00:00", timerTxt.getText().toString(), kicks));
+                kickStartedBtn.setText("Kick Started");
+                kickedBtn.setEnabled(false);
+                timerTxt.setText("00:00:00");
+                running = false;
+                seconds = 0;
+                kicks = 0;
+            }
+        });
+
+        kickedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kicks++;
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_baby_kick, container, false);
+        return view;
+    }
+
+    private void runTimer()
+    {
+
+        final Handler handler
+                = new Handler(Looper.getMainLooper());
+
+        handler.post(new Runnable() {
+
+            @Override
+            public void run()
+            {
+                int hours = seconds / 3600;
+                int minutes = (seconds % 3600) / 60;
+                int secs = seconds % 60;
+
+                // Format the seconds into hours, minutes,
+                // and seconds.
+                String time
+                        = String
+                        .format(Locale.getDefault(),
+                                "%d:%02d:%02d", hours,
+                                minutes, secs);
+
+                // Set the text view text.
+                timerTxt.setText(time);
+
+                // If running is true, increment the
+                // seconds variable.
+                if (running) {
+                    seconds++;
+                }
+
+                // Post the code again
+                // with a delay of 1 second.
+                handler.postDelayed(this, 1000);
+            }
+        });
     }
 }

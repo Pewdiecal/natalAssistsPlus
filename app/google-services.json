@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "43072560699",
+    "firebase_url": "https://natalassistsplus.firebaseio.com",
+    "project_id": "natalassistsplus",
+    "storage_bucket": "natalassistsplus.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43072560699:android:8432c571847f76ea54061e",
+        "android_client_info": {
+          "package_name": "com.caltech.natalassistsplus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "43072560699-163fn2nbsco92ks5sffrearnucqv3nsg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBur8QEFSl7lM7pOC95wmuunrRaI9VmNjs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "43072560699-163fn2nbsco92ks5sffrearnucqv3nsg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
