@@ -167,6 +167,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/continueBtn" />
 
+            <ProgressBar
+                android:id="@+id/signUpProgressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/loginExistsBtn"
+                app:layout_constraintEnd_toEndOf="@+id/confirmPwdInputLayout"
+                app:layout_constraintStart_toStartOf="@+id/confirmPwdInputLayout"
+                app:layout_constraintTop_toBottomOf="@+id/confirmPwdInputLayout" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 

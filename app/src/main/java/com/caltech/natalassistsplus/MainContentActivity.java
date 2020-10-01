@@ -1,5 +1,6 @@
 package com.caltech.natalassistsplus;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class MainContentActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ViewPager2 viewPager2;
+    String username;
 
     // Make sure to be using androidx.appcompat.app.ActionBarDrawerToggle version.
     private ActionBarDrawerToggle drawerToggle;
@@ -35,6 +37,7 @@ public class MainContentActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar3);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        username = getIntent().getStringExtra("Username");
 
         ViewPagerAdaper viewPagerAdaper = new ViewPagerAdaper(this);
         mDrawer = findViewById(R.id.drawer_layout);
@@ -123,8 +126,16 @@ public class MainContentActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         switch (viewPager2.getCurrentItem()){
             case 1:
+            case 4:
+            case 5:
+            case 6:
                 getMenuInflater().inflate(R.menu.main_content, menu);
                 break;
+            case 3:
+                getMenuInflater().inflate(R.menu.menu_forum_fragment, menu);
+                break;
+
+
         }
         return true;
     }
@@ -135,6 +146,13 @@ public class MainContentActivity extends AppCompatActivity {
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
                 return true;
+
+            case R.id.actionCreateForum:
+                Intent intent = new Intent(this, CreateForumPostActivity.class);
+                intent.putExtra("Username", username);
+                startActivity(intent);
+                break;
+
         }
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;

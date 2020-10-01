@@ -2,22 +2,36 @@ package com.caltech.natalassistsplus;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ForumFragment extends Fragment {
 
     RecyclerView forumRecyclerView;
     RecyclerView.LayoutManager forumLayoutManager;
     ForumRecyclerViewAdapter forumRecyclerViewAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
     ArrayList<ForumPost> forumPosts = new ArrayList<>();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public ForumFragment() {
         // Required empty public constructor
@@ -26,6 +40,7 @@ public class ForumFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -34,6 +49,7 @@ public class ForumFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_forum, container, false);
         forumRecyclerView = view.findViewById(R.id.forumRV);
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshForum);
         forumLayoutManager = new LinearLayoutManager(getContext());
 
         forumPosts.add(new ForumPost("Josh", R.drawable.user1, "22 hours ago",
@@ -66,7 +82,45 @@ public class ForumFragment extends Fragment {
         forumRecyclerView.setHasFixedSize(true);
         forumRecyclerView.setLayoutManager(forumLayoutManager);
         forumRecyclerView.setAdapter(forumRecyclerViewAdapter);
+        fetchPostData();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPostData();
+            }
+        });
 
         return view;
     }
+
+    private void fetchPostData(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
+
+        db.collection("forumPosts")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if(task.isSuccessful()){
+                        boolean isExists;
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            isExists = false;
+                            for(ForumPost forumPost:forumPosts){
+                                if(forumPost.getPostDesc().equals(document.getString("PostDesc")) &&
+                                        forumPost.getUsername().equals(document.getString("Username"))){
+                                    isExists = true;
+                                    break;
+                                }
+                            }
+
+                            if(!isExists){
+                                forumPosts.add(new ForumPost(document.getString("Username"), R.drawable.ic_baseline_supervised_user_circle_24,
+                                        simpleDateFormat.format(new Date()), document.getString("PostDesc"), 0));
+                            }
+                        }
+                        forumRecyclerViewAdapter.notifyDataSetChanged();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                });
+    }
+
 }

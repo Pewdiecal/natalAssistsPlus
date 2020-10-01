@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MonitorForumActivity"></activity>
+        <activity android:name=".CreateForumPostActivity"/>
+        <activity android:name=".ProvideFeedbackActivity" />
+        <activity android:name=".CreateAlarmActivity" />
+        <activity android:name=".MonitorForumActivity" />
         <activity android:name=".ManageUserAccountActivity" />
         <activity android:name=".CrashReportActivity" />
         <activity android:name=".UserFeedbackActivity" />
@@ -23,18 +26,18 @@
         <activity android:name=".MedicalHistoryActivity" />
         <activity android:name=".ReportDetailActivity" />
         <activity android:name=".MedicalReportActivity" />
-        <activity android:name=".MainContentActivity">
+        <activity android:name=".MainContentActivity"/>
+        <activity android:name=".MotherSetupActivity" />
+        <activity android:name=".RoleActivity" />
+        <activity android:name=".AccountRecoveryActivity" />
+        <activity android:name=".SignUpActivity" />
+        <activity android:name=".SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MotherSetupActivity" />
-        <activity android:name=".RoleActivity" />
-        <activity android:name=".AccountRecoveryActivity" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".SplashActivity" />
         <activity android:name=".MainActivity" />
     </application>
 

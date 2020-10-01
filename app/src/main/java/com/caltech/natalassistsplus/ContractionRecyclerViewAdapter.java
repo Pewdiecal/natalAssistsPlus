@@ -51,7 +51,7 @@ public class ContractionRecyclerViewAdapter extends RecyclerView.Adapter<Contrac
             @Override
             public void onClick(View v) {
                 contractionCounts.remove(position);
-                notifyItemRemoved(position);
+                updateData();
             }
         });
     }
@@ -62,6 +62,6 @@ public class ContractionRecyclerViewAdapter extends RecyclerView.Adapter<Contrac
     }
 
     public void updateData(){
-        notifyItemInserted(contractionCounts.size()-1);
+        notifyDataSetChanged();
     }
 }

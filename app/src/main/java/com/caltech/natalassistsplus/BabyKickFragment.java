@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class BabyKickFragment extends Fragment {
@@ -54,23 +56,26 @@ public class BabyKickFragment extends Fragment {
         babyKickRecyclerViewAdapter = new BabyKickRecyclerViewAdapter(babyKickCounts);
         babyKickLayoutManager = new LinearLayoutManager(getContext());
         babyKickRecyclerView.setHasFixedSize(true);
+        babyKickRecyclerView.setLayoutManager(babyKickLayoutManager);
         babyKickRecyclerView.setAdapter(babyKickRecyclerViewAdapter);
         runTimer();
 
         kickStartedBtn.setOnClickListener(v -> {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
             if(kickStartedBtn.getText().toString().equals("Kick Started")){
                 kickedBtn.setEnabled(true);
                 kickStartedBtn.setText("Kick Stopped");
                 running = true;
                 kicks++;
             } else {
-                babyKickCounts.add(new BabyKickCount("00:00:00", timerTxt.getText().toString(), kicks));
+                babyKickCounts.add(new BabyKickCount(simpleDateFormat.format(new Date()), timerTxt.getText().toString(), kicks));
                 kickStartedBtn.setText("Kick Started");
                 kickedBtn.setEnabled(false);
                 timerTxt.setText("00:00:00");
                 running = false;
                 seconds = 0;
                 kicks = 0;
+                babyKickRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
 
@@ -104,7 +109,7 @@ public class BabyKickFragment extends Fragment {
                 String time
                         = String
                         .format(Locale.getDefault(),
-                                "%d:%02d:%02d", hours,
+                                "%02d:%02d:%02d", hours,
                                 minutes, secs);
 
                 // Set the text view text.

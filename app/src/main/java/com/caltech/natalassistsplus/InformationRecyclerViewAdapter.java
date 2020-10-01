@@ -1,6 +1,9 @@
 package com.caltech.natalassistsplus;
 
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +60,30 @@ public class InformationRecyclerViewAdapter extends RecyclerView.Adapter<Informa
         holder.exploreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent browserIntent;
+                switch (position){
+                    case 0:
+                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.healthline.com/nutrition/healthy-eating-tips"));
+                        break;
+                    case 1:
+                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.whattoexpect.com/first-year/baby-care/"));
+                        break;
+                    case 2:
+                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.glamour.com/gallery/maternity-fashion"));
+                        break;
+                    case 3:
+                        browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.jordangrayconsulting.com/how-to-give-a-woman-a-sensual-massage/"));
+                        break;
+                    default:
+                        browserIntent = null;
+                }
 
+                PendingIntent pendingIntent = PendingIntent.getActivity(v.getContext(), 0, browserIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                try {
+                    pendingIntent.send();
+                } catch (PendingIntent.CanceledException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

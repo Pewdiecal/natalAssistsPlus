@@ -52,7 +52,7 @@ public class BabyKickRecyclerViewAdapter extends RecyclerView.Adapter<BabyKickRe
         holder.kickNum.setText("Number of kick : " + babyKickCounts.get(position).getNumOfKicks());
         holder.cancel.setOnClickListener(v -> {
             babyKickCounts.remove(position);
-            notifyItemRemoved(position);
+            notifyDataSetChanged();
         });
     }
 
@@ -61,7 +61,4 @@ public class BabyKickRecyclerViewAdapter extends RecyclerView.Adapter<BabyKickRe
         return babyKickCounts.size();
     }
 
-    public void updateData(){
-        notifyItemInserted(babyKickCounts.size()-1);
-    }
 }

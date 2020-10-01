@@ -40,6 +40,21 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/motherCheckIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="94dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView5"
+                app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+            <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="117dp"
                 android:layout_height="118dp"
@@ -93,6 +108,22 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/fatherCheckIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="88dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView6"
+                app:srcCompat="@drawable/ic_baseline_check_circle_24" />
+
+            <ImageView
                 android:id="@+id/imageView6"
                 android:layout_width="117dp"
                 android:layout_height="118dp"
@@ -144,6 +175,21 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/medicalPractitionerCheckIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="94dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imageView7"
+                app:srcCompat="@drawable/ic_baseline_check_circle_24" />
 
             <ImageView
                 android:id="@+id/imageView7"

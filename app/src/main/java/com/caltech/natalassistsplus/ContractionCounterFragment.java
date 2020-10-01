@@ -8,13 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 public class ContractionCounterFragment extends Fragment {
@@ -42,23 +45,21 @@ public class ContractionCounterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contraction_counter, container, false);
-
         timer = view.findViewById(R.id.timerContractionTxt);
         contractionStartedBtn = view.findViewById(R.id.contractionBtn);
         runTimer();
         contractionStartedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
                 if(contractionStartedBtn.getText().toString().equals("Contraction Started")){
                     contractionStartedBtn.setText("Contraction Stop");
                     running = true;
                 } else {
                     contractionStartedBtn.setText("Contraction Started");
-                    contractionCounts.add(new ContractionCount("00:00:00", timer.getText().toString()));
                     running = false;
                     seconds = 0;
-                    timer.setText("00:00:00");
+                    contractionCounts.add(new ContractionCount(simpleDateFormat.format(new Date()), timer.getText().toString()));
                     contractionRecyclerViewAdapter.updateData();
                 }
 
@@ -68,8 +69,9 @@ public class ContractionCounterFragment extends Fragment {
         contractionRecyclerView = view.findViewById(R.id.contractionRV);
         contractionLayoutManager = new LinearLayoutManager(getContext());
         contractionRecyclerViewAdapter = new ContractionRecyclerViewAdapter(contractionCounts);
+        contractionRecyclerView.setLayoutManager(contractionLayoutManager);
         contractionRecyclerView.setAdapter(contractionRecyclerViewAdapter);
-        contractionRecyclerView.setHasFixedSize(true);
+
         return view;
     }
 
@@ -93,15 +95,16 @@ public class ContractionCounterFragment extends Fragment {
                 String time
                         = String
                         .format(Locale.getDefault(),
-                                "%d:%02d:%02d", hours,
+                                "%02d:%02d:%02d", hours,
                                 minutes, secs);
 
                 // Set the text view text.
-                timer.setText(time);
+
 
                 // If running is true, increment the
                 // seconds variable.
                 if (running) {
+                    timer.setText(time);
                     seconds++;
                 }
 

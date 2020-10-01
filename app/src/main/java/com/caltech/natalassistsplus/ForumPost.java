@@ -15,6 +15,8 @@ public class ForumPost {
         this.postImg = postImg;
     }
 
+    public ForumPost(){}
+
     public String getUsername(){
         return username;
     }
