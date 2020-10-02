@@ -32,7 +32,9 @@ public class MedicalMattersFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_medical_matters, container, false);
         medicalMenuRecyclerView = view.findViewById(R.id.medicalMenuRV);
         medicalLayoutManager = new LinearLayoutManager(getContext());
-        medicalRecyclerViewAdapter = new MedicalRecyclerViewAdapter();
+        medicalRecyclerViewAdapter = new MedicalRecyclerViewAdapter(getActivity().getIntent().getStringExtra("Username"),
+                getActivity().getIntent().getStringExtra("DocID"));
+        medicalMenuRecyclerView.setLayoutManager(medicalLayoutManager);
         medicalMenuRecyclerView.setHasFixedSize(true);
         medicalMenuRecyclerView.setAdapter(medicalRecyclerViewAdapter);
 

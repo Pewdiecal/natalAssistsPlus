@@ -105,7 +105,7 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
                             for(int i = 0; i < task.getResult().size(); i++){
                                 if(task.getResult().getDocuments().get(i).getString("Username").equals(username) &&
                                         task.getResult().getDocuments().get(i).getString("Password").equals(pwd)){
-                                    logInUser(username);
+                                    logInUser(username, task.getResult().getDocuments().get(i).getId());
                                     break;
                                 }
                                 if(i == task.getResult().size() - 1){
@@ -121,9 +121,10 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     }
 
-    private void logInUser(String username){
+    private void logInUser(String username, String docID){
         Intent intent = new Intent(this, MainContentActivity.class);
         intent.putExtra("Username", username);
+        intent.putExtra("DocID", docID);
         startActivity(intent);
     }
 

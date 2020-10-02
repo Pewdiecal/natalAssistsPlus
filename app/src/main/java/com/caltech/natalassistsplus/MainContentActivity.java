@@ -25,6 +25,7 @@ public class MainContentActivity extends AppCompatActivity {
     private NavigationView nvDrawer;
     private ViewPager2 viewPager2;
     String username;
+    String docID;
 
     // Make sure to be using androidx.appcompat.app.ActionBarDrawerToggle version.
     private ActionBarDrawerToggle drawerToggle;
@@ -38,6 +39,7 @@ public class MainContentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         username = getIntent().getStringExtra("Username");
+        docID = getIntent().getStringExtra("DocID");
 
         ViewPagerAdaper viewPagerAdaper = new ViewPagerAdaper(this);
         mDrawer = findViewById(R.id.drawer_layout);
@@ -129,10 +131,17 @@ public class MainContentActivity extends AppCompatActivity {
             case 4:
             case 5:
             case 6:
+            case 9:
                 getMenuInflater().inflate(R.menu.main_content, menu);
                 break;
             case 3:
                 getMenuInflater().inflate(R.menu.menu_forum_fragment, menu);
+                break;
+            case 7:
+                getMenuInflater().inflate(R.menu.menu_alarm, menu);
+                break;
+            case 11:
+                getMenuInflater().inflate(R.menu.menu_feedback, menu);
                 break;
 
 
@@ -152,6 +161,8 @@ public class MainContentActivity extends AppCompatActivity {
                 intent.putExtra("Username", username);
                 startActivity(intent);
                 break;
+
+            case R.id.actionFeedbackConfirm:
 
         }
         if (drawerToggle.onOptionsItemSelected(item)) {

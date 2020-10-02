@@ -1,6 +1,8 @@
 package com.caltech.natalassistsplus;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecyclerViewAdapter.ViewHolder>{
+
+    String username;
+    String docID;
+
+    public MedicalRecyclerViewAdapter(String username, String docID) {
+        this.username = username;
+        this.docID = docID;
+    }
 
     @NonNull
     @Override
@@ -42,7 +52,10 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(v.getContext(), MedicalReportActivity.class);
+                        intent.putExtra("Username", username);
+                        intent.putExtra("DocID", docID);
+                        v.getContext().startActivity(intent);
                     }
                 });
                 break;
@@ -52,7 +65,10 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(v.getContext(), MedicalHistoryActivity.class);
+                        intent.putExtra("Username", username);
+                        intent.putExtra("DocID", docID);
+                        v.getContext().startActivity(intent);
                     }
                 });
                 break;
@@ -62,7 +78,10 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(v.getContext(), UpcomingScheduleActivity.class);
+                        intent.putExtra("Username", username);
+                        intent.putExtra("DocID", docID);
+                        v.getContext().startActivity(intent);
                     }
                 });
                 break;

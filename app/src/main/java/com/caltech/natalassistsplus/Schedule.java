@@ -15,6 +15,7 @@ public class Schedule {
         this.picDesc = picDesc;
 
     }
+    public Schedule(){}
 
     public String getScheduleName(){
         return scheduleName;

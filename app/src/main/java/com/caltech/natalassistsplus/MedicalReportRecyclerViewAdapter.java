@@ -1,6 +1,7 @@
 package com.caltech.natalassistsplus;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,25 @@ public class MedicalReportRecyclerViewAdapter extends RecyclerView.Adapter<Medic
         holder.share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(), ReportDetailActivity.class);
+                intent.putExtra("reportTitle", medicalReports.get(position).reportTitle);
+                intent.putExtra("reportDate", medicalReports.get(position).reportDate);
+                intent.putExtra("patientName", medicalReports.get(position).patientName);
+                intent.putExtra("doctorName", medicalReports.get(position).doctorName);
+                intent.putExtra("hospitalName", medicalReports.get(position).hospitalName);
+                intent.putExtra("overallHealthStats", medicalReports.get(position).overallHealthStats);
+                intent.putExtra("doctorAdvise", medicalReports.get(position).doctorAdvise);
+                intent.putExtra("babyOverallHealthStats", medicalReports.get(position).babyOverallHealthStats);
+                intent.putExtra("babyWeight", medicalReports.get(position).babyWeight);
+                intent.putExtra("toBeBorn", medicalReports.get(position).toBeBorn);
+                intent.putExtra("heartStats", medicalReports.get(position).heartStats);
+                intent.putExtra("brainStats", medicalReports.get(position).brainStats);
+                intent.putExtra("lungsStats", medicalReports.get(position).lungsStats);
+                intent.putExtra("liverStats", medicalReports.get(position).liverStats);
+                intent.putExtra("kidneysStats", medicalReports.get(position).kidneysStats);
+                intent.putExtra("intestineStats", medicalReports.get(position).intestineStats);
+                intent.putExtra("babyUltrasonicImg", medicalReports.get(position).babyUltrasonicImg);
+                v.getContext().startActivity(intent);
             }
         });
     }

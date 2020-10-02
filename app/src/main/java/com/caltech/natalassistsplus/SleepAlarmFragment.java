@@ -36,10 +36,16 @@ public class SleepAlarmFragment extends Fragment {
         alarmRecyclerView = view.findViewById(R.id.alarmRV);
         alarmLayoutManager = new LinearLayoutManager(getContext());
         alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(alarmInfos);
+        alarmRecyclerView.setLayoutManager(alarmLayoutManager);
         alarmRecyclerView.setAdapter(alarmRecyclerViewAdapter);
         alarmRecyclerView.setHasFixedSize(true);
-
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        alarmRecyclerViewAdapter.notifyDataSetChanged();
     }
 }
