@@ -12,6 +12,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.model.Document;
 
 public class MedicalHistoryActivity extends AppCompatActivity {
 
@@ -42,21 +44,18 @@ public class MedicalHistoryActivity extends AppCompatActivity {
     }
 
     private void fetchData(){
-        db.collection("users").document(docID)
+        db.collection("users").document(docID).collection("medicalHistoryReport").document("report")
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    String medicalHistoryStr = "Ongoing medication : " + task.getResult().getString("OngoingMedication") + "\n" +
-                            "Last updated date : " + task.getResult().getString("LastUpdate") + "\n" +
-                            "Patient name : " + task.getResult().getString("PatientName") + "\n" +
-                            "Chronic Illness : " + task.getResult().getString("ChronicIllness") + "\n" +
-                            "Blood Type : " + task.getResult().getString("BloodType") + "\n" +
-                            "Number of miscarriage : " + task.getResult().getString("NumMiscarriage");
+                String medicalHistoryStr = "Ongoing medication : " + task.getResult().getString("OngoingMedication") + "\n" +
+                        "Last updated date : " + task.getResult().getString("LastUpdate") + "\n" +
+                        "Patient name : " + task.getResult().getString("PatientName") + "\n" +
+                        "Chronic Illness : " + task.getResult().getString("ChronicIllness") + "\n" +
+                        "Blood Type : " + task.getResult().getString("BloodType") + "\n" +
+                        "Number of miscarriage : " + task.getResult().getString("NumMiscarriage");
 
-                    medicalHistory.setText(medicalHistoryStr);
-                }
-
+                medicalHistory.setText(medicalHistoryStr);
             }
         });
     }

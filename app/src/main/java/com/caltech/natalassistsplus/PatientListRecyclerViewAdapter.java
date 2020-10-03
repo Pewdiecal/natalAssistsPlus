@@ -52,20 +52,27 @@ public class PatientListRecyclerViewAdapter extends RecyclerView.Adapter<Patient
                         v.getContext().startActivity(intentUpdateHealth);
                         break;
                     case 1:
+                        Intent intentUpdateHistoryReport = new Intent(v.getContext(), UpdateMedicalHistoryReportActivity.class);
+                        intentUpdateHistoryReport.putExtra("Username", patients.get(position).getUsername());
+                        intentUpdateHistoryReport.putExtra("DoctorUsername", doctorUsername);
+                        intentUpdateHistoryReport.putExtra("DocID", patients.get(position).getDocID());
+                        v.getContext().startActivity(intentUpdateHistoryReport);
+                        break;
+                    case 2:
                         Intent intentMedicalReport = new Intent(v.getContext(), MedicalReportActivity.class);
                         intentMedicalReport.putExtra("Username", patients.get(position).getUsername());
                         intentMedicalReport.putExtra("DoctorUsername", doctorUsername);
                         intentMedicalReport.putExtra("DocID", patients.get(position).getDocID());
                         v.getContext().startActivity(intentMedicalReport);
                         break;
-                    case 2:
+                    case 3:
                         Intent intentMedicalHistory = new Intent(v.getContext(), MedicalHistoryActivity.class);
                         intentMedicalHistory.putExtra("Username", patients.get(position).getUsername());
                         intentMedicalHistory.putExtra("DoctorUsername", doctorUsername);
                         intentMedicalHistory.putExtra("DocID", patients.get(position).getDocID());
                         v.getContext().startActivity(intentMedicalHistory);
                         break;
-                    case 3:
+                    case 4:
                         Intent intentCheckupSchedule = new Intent(v.getContext(), UpcomingScheduleActivity.class);
                         intentCheckupSchedule.putExtra("Username", patients.get(position).getUsername());
                         intentCheckupSchedule.putExtra("DoctorUsername", doctorUsername);

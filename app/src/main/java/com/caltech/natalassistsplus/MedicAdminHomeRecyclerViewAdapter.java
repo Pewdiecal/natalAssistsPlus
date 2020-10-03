@@ -36,7 +36,7 @@ public class MedicAdminHomeRecyclerViewAdapter extends RecyclerView.Adapter<Medi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         switch (position){
             case 0:
-                holder.menuTitle.setText("Update Health Status");
+                holder.menuTitle.setText("Generate Health Report");
                 holder.menuIcon.setImageResource(R.drawable.ic_refresh);
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -49,9 +49,10 @@ public class MedicAdminHomeRecyclerViewAdapter extends RecyclerView.Adapter<Medi
                     }
                 });
                 break;
+
             case 1:
-                holder.menuTitle.setText("Medical report history");
-                holder.menuIcon.setImageResource(R.drawable.ic_analysis);
+                holder.menuTitle.setText("Update Medical History Report");
+                holder.menuIcon.setImageResource(R.drawable.ic_updated);
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -64,8 +65,8 @@ public class MedicAdminHomeRecyclerViewAdapter extends RecyclerView.Adapter<Medi
                 });
                 break;
             case 2:
-                holder.menuTitle.setText("Medical history");
-                holder.menuIcon.setImageResource(R.drawable.ic_pills);
+                holder.menuTitle.setText("Medical report history");
+                holder.menuIcon.setImageResource(R.drawable.ic_analysis);
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -78,8 +79,8 @@ public class MedicAdminHomeRecyclerViewAdapter extends RecyclerView.Adapter<Medi
                 });
                 break;
             case 3:
-                holder.menuTitle.setText("Checkup Schedules");
-                holder.menuIcon.setImageResource(R.drawable.ic_calendar);
+                holder.menuTitle.setText("Medical history");
+                holder.menuIcon.setImageResource(R.drawable.ic_pills);
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -92,6 +93,20 @@ public class MedicAdminHomeRecyclerViewAdapter extends RecyclerView.Adapter<Medi
                 });
                 break;
             case 4:
+                holder.menuTitle.setText("Checkup Schedules");
+                holder.menuIcon.setImageResource(R.drawable.ic_calendar);
+                holder.menuCard.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), patientListActivity.class);
+                        intent.putExtra("Username", username);
+                        intent.putExtra("DocID", docID);
+                        intent.putExtra("ToActivity", 4);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+                break;
+            case 5:
                 holder.menuTitle.setText("Add new patient");
                 holder.menuIcon.setImageResource(R.drawable.ic_plus_patient);
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +115,7 @@ public class MedicAdminHomeRecyclerViewAdapter extends RecyclerView.Adapter<Medi
                         Intent intent = new Intent(v.getContext(), AddNewPatientActivity.class);
                         intent.putExtra("DoctorUsername", username);
                         intent.putExtra("DocID", docID);
-                        intent.putExtra("ToActivity", 4);
+                        intent.putExtra("ToActivity", 5);
                         v.getContext().startActivity(intent);
                     }
                 });
@@ -110,7 +125,7 @@ public class MedicAdminHomeRecyclerViewAdapter extends RecyclerView.Adapter<Medi
 
     @Override
     public int getItemCount() {
-        return 5;
+        return 6;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

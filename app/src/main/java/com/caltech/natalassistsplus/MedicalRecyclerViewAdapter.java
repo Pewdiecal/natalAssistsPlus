@@ -37,16 +37,6 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
     public void onBindViewHolder(@NonNull MedicalRecyclerViewAdapter.ViewHolder holder, int position) {
         switch (position){
             case 0:
-                holder.menuTitle.setText("Update Health Status");
-                holder.menuIcon.setImageResource(R.drawable.ic_refresh);
-                holder.menuCard.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                });
-                break;
-            case 1:
                 holder.menuTitle.setText("Medical report history");
                 holder.menuIcon.setImageResource(R.drawable.ic_analysis);
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +49,7 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
                     }
                 });
                 break;
-            case 2:
+            case 1:
                 holder.menuTitle.setText("Medical history");
                 holder.menuIcon.setImageResource(R.drawable.ic_pills);
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +62,7 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
                     }
                 });
                 break;
-            case 3:
+            case 2:
                 holder.menuTitle.setText("Checkup Schedules");
                 holder.menuIcon.setImageResource(R.drawable.ic_calendar);
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +80,7 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 3;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
