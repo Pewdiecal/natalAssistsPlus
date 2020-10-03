@@ -2,7 +2,6 @@ package com.caltech.natalassistsplus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,19 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecyclerViewAdapter.ViewHolder>{
+public class MedicAdminHomeRecyclerViewAdapter extends RecyclerView.Adapter<MedicAdminHomeRecyclerViewAdapter.ViewHolder> {
 
     String username;
     String docID;
 
-    public MedicalRecyclerViewAdapter(String username, String docID) {
+    public MedicAdminHomeRecyclerViewAdapter(String username, String docID){
         this.username = username;
         this.docID = docID;
     }
 
     @NonNull
     @Override
-    public MedicalRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View menuView = inflater.inflate(R.layout.layout_medical_menu, parent, false);
@@ -34,7 +33,7 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MedicalRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         switch (position){
             case 0:
                 holder.menuTitle.setText("Update Health Status");
@@ -42,7 +41,11 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(v.getContext(), patientListActivity.class);
+                        intent.putExtra("Username", username);
+                        intent.putExtra("DocID", docID);
+                        intent.putExtra("ToActivity", 0);
+                        v.getContext().startActivity(intent);
                     }
                 });
                 break;
@@ -52,9 +55,10 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), MedicalReportActivity.class);
+                        Intent intent = new Intent(v.getContext(), patientListActivity.class);
                         intent.putExtra("Username", username);
                         intent.putExtra("DocID", docID);
+                        intent.putExtra("ToActivity", 1);
                         v.getContext().startActivity(intent);
                     }
                 });
@@ -65,9 +69,10 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), MedicalHistoryActivity.class);
+                        Intent intent = new Intent(v.getContext(), patientListActivity.class);
                         intent.putExtra("Username", username);
                         intent.putExtra("DocID", docID);
+                        intent.putExtra("ToActivity", 2);
                         v.getContext().startActivity(intent);
                     }
                 });
@@ -78,9 +83,24 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
                 holder.menuCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), UpcomingScheduleActivity.class);
+                        Intent intent = new Intent(v.getContext(), patientListActivity.class);
                         intent.putExtra("Username", username);
                         intent.putExtra("DocID", docID);
+                        intent.putExtra("ToActivity", 3);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+                break;
+            case 4:
+                holder.menuTitle.setText("Add new patient");
+                holder.menuIcon.setImageResource(R.drawable.ic_plus_patient);
+                holder.menuCard.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), AddNewPatientActivity.class);
+                        intent.putExtra("DoctorUsername", username);
+                        intent.putExtra("DocID", docID);
+                        intent.putExtra("ToActivity", 4);
                         v.getContext().startActivity(intent);
                     }
                 });
@@ -90,7 +110,7 @@ public class MedicalRecyclerViewAdapter extends RecyclerView.Adapter<MedicalRecy
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 5;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

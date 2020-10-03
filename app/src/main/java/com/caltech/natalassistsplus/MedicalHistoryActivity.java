@@ -2,8 +2,10 @@ package com.caltech.natalassistsplus;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,6 +18,8 @@ public class MedicalHistoryActivity extends AppCompatActivity {
     TextView medicalHistory;
     String username;
     String docID;
+    Toolbar toolbar;
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -23,9 +27,15 @@ public class MedicalHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medical_history);
 
+        toolbar = findViewById(R.id.medicalHistoryToolbar);
         medicalHistory = findViewById(R.id.medicalHistoryTxt);
         username = getIntent().getStringExtra("Username");
         docID = getIntent().getStringExtra("DocID");
+
+        toolbar.setTitle("Medical History");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         fetchData();
 
@@ -49,5 +59,11 @@ public class MedicalHistoryActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }

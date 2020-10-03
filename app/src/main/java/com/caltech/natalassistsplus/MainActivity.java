@@ -19,6 +19,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 TextInputLayout usernameInputLayout;
 TextInputLayout pwdInputLayout;
@@ -47,7 +50,6 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
         signinbtn.setOnClickListener(v -> {
             String username = usernameedt.getText().toString();
             String pwd = pwdedt.getText().toString();
-
             signinbtn.setEnabled(false);
             progressBar.setVisibility(View.VISIBLE);
             if(username.isEmpty()){
@@ -82,6 +84,13 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
                 startActivity(intent);
             }
         });
+
+        uploadError("400", "Bad Request. The server cannot or will not process the request due to an apparent client error (e.g., malformed request syntax, " +
+                "size too large, invalid request message framing, or deceptive request routing)", "Login screen.");
+        uploadError("404", "Not found", "Dashboard screen.");
+        uploadError("408", "Request Timeout", "Information center screen.");
+        uploadError("413", "Payload Too Large", "Dashboard screen.");
+        uploadError("417", "Expectation Failed", "Confinement Center screen");
     }
 
     private void validateUser(String username, String pwd){
@@ -105,7 +114,8 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
                             for(int i = 0; i < task.getResult().size(); i++){
                                 if(task.getResult().getDocuments().get(i).getString("Username").equals(username) &&
                                         task.getResult().getDocuments().get(i).getString("Password").equals(pwd)){
-                                    logInUser(username, task.getResult().getDocuments().get(i).getId());
+                                    logInUser(username, task.getResult().getDocuments().get(i).getId(),
+                                            task.getResult().getDocuments().get(i).getString("Role"));
                                     break;
                                 }
                                 if(i == task.getResult().size() - 1){
@@ -121,11 +131,27 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     }
 
-    private void logInUser(String username, String docID){
-        Intent intent = new Intent(this, MainContentActivity.class);
+    private void logInUser(String username, String docID, String role){
+        Intent intent;
+        if(role.equals("Admin") || role.equals("Medical Practitioner")){
+            intent = new Intent(this, MedicAdminHomeActivity.class);
+        } else {
+            intent = new Intent(this, MainContentActivity.class);
+        }
         intent.putExtra("Username", username);
         intent.putExtra("DocID", docID);
+        intent.putExtra("Role", role);
         startActivity(intent);
+        finish();
+    }
+
+    private void uploadError(String errCode, String errMsg, String errDetails){
+        Map<String, Object> error = new HashMap<>();
+        error.put("ErrorCode", errCode);
+        error.put("ErrorMessage", errMsg);
+        error.put("ErrorDetails", errDetails);
+
+        db.collection("crashReport").add(error);
     }
 
 }

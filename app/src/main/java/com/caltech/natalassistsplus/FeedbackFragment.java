@@ -1,10 +1,8 @@
 package com.caltech.natalassistsplus;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -37,7 +35,7 @@ public class FeedbackFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -47,7 +45,7 @@ public class FeedbackFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_feedback, container, false);
         suggestionInputLayout = view.findViewById(R.id.suggestionTxtInputLayout);
         suggestionEdt = view.findViewById(R.id.suggestionsEdt);
-        ratingBar = view.findViewById(R.id.ratingBar);
+        ratingBar = view.findViewById(R.id.provideFeedbackRatingBar);
         ratingBar.setNumStars(5);
 
         // Inflate the layout for this fragment
@@ -74,7 +72,7 @@ public class FeedbackFragment extends Fragment {
         feedbackData.put("FeedbackMessage", suggestionEdt.getText().toString());
         feedbackData.put("Ratings", ratingBar.getRating());
 
-        db.collection("Feedbacks")
+        db.collection("feedbacks")
                 .add(feedbackData)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override

@@ -34,16 +34,20 @@ public class MotherSetupActivity extends AppCompatActivity {
     Button skipBtn;
     ProgressBar progressBar;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    String username;
+    String email;
+    String role;
+    String pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mother_setup);
 
-        String username = getIntent().getStringExtra("Username");
-        String email = getIntent().getStringExtra("Email");
-        String role = getIntent().getStringExtra("Role");
-        String pwd = getIntent().getStringExtra("Password");
+        username = getIntent().getStringExtra("Username");
+        email = getIntent().getStringExtra("Email");
+        role = getIntent().getStringExtra("Role");
+        pwd = getIntent().getStringExtra("Password");
 
         fatherEmailInputLayout = findViewById(R.id.fatherEmailInputLayout);
         fatherUserNameInputLayout = findViewById(R.id.fatherUserNameInputLayout);
@@ -162,7 +166,9 @@ public class MotherSetupActivity extends AppCompatActivity {
     private void completeSignUp(String documentID){
 
         Intent intent = new Intent(this, MainContentActivity.class);
-        intent.putExtra("Document ID", documentID);
+        intent.putExtra("Username", username);
+        intent.putExtra("DocID", documentID);
+        intent.putExtra("Role", role);
         startActivity(intent);
         finish();
     }

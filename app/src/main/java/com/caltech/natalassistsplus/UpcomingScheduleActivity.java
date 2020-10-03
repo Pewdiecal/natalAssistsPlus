@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,6 +38,11 @@ public class UpcomingScheduleActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.upcomingScheduleToolbar);
         upcomingScheduleRV = findViewById(R.id.upcomingScheduleRV);
 
+        toolbar.setTitle("Checkup Schedule");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         upcomingScheduleRecyclerViewAdapter = new UpcomingScheduleRecyclerViewAdapter(schedules);
 
         layoutManager = new LinearLayoutManager(this);
@@ -61,5 +67,11 @@ public class UpcomingScheduleActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }

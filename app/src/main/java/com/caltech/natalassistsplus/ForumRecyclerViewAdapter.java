@@ -6,21 +6,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class ForumRecyclerViewAdapter extends RecyclerView.Adapter<ForumRecyclerViewAdapter.ViewHolder> {
 
     ArrayList<ForumPost> forumPosts;
+    boolean isAdmin;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView username;
         public TextView postTime;
         public TextView postDesc;
         public ImageView postImg;
         public ImageView userProfileImg;
+        public ImageView removePost;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -29,11 +36,19 @@ public class ForumRecyclerViewAdapter extends RecyclerView.Adapter<ForumRecycler
             postDesc = itemView.findViewById(R.id.forumDescRV);
             postImg = itemView.findViewById(R.id.forumPicRV);
             userProfileImg = itemView.findViewById(R.id.userImgForumRV);
+            removePost = itemView.findViewById(R.id.removeForumBtn);
+
         }
     }
 
     public ForumRecyclerViewAdapter(ArrayList<ForumPost> forumPosts){
         this.forumPosts = forumPosts;
+    }
+
+    public ForumRecyclerViewAdapter(ArrayList<ForumPost> forumPosts, boolean isAdmin){
+        this.forumPosts = forumPosts;
+        this.isAdmin = isAdmin;
+
     }
 
     @NonNull
@@ -53,6 +68,9 @@ public class ForumRecyclerViewAdapter extends RecyclerView.Adapter<ForumRecycler
         TextView postDesc = holder.postDesc;
         ImageView postImg = holder.postImg;
         ImageView userProfilePic = holder.userProfileImg;
+        if(isAdmin){
+            holder.removePost.setVisibility(View.VISIBLE);
+        }
 
         username.setText(forumPosts.get(position).getUsername());
         postTime.setText(forumPosts.get(position).getPostTime());
@@ -63,6 +81,22 @@ public class ForumRecyclerViewAdapter extends RecyclerView.Adapter<ForumRecycler
             postImg.setImageResource(forumPosts.get(position).getPostImg());
         }
         userProfilePic.setImageResource(forumPosts.get(position).getUserProfileImg());
+
+        holder.removePost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.collection("forumPosts").document(forumPosts.get(position).getDocID())
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                forumPosts.remove(position);
+                                Toast.makeText(v.getContext(), "Post removed successfully.", Toast.LENGTH_LONG).show();
+                                notifyDataSetChanged();
+                            }
+                        });
+            }
+        });
     }
 
     @Override

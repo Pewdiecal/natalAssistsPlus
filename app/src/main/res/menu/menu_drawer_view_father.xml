@@ -22,18 +22,6 @@
             android:icon="@drawable/ic_info_24px"
             android:title="Information Center" />
         <item
-            android:id="@+id/contraction_menu"
-            android:icon="@drawable/ic_tag_faces_24px"
-            android:title="Contraction Counter" />
-        <item
-            android:id="@+id/kick_menu"
-            android:icon="@drawable/ic_child_care_24px"
-            android:title="Baby Kick Counter" />
-        <item
-            android:id="@+id/alarm_menu"
-            android:icon="@drawable/ic_alarm_24px"
-            android:title="Sleep Cycle Alarm" />
-        <item
             android:id="@+id/chatroom_menu"
             android:icon="@drawable/ic_chat_24px"
             android:title="Chatroom" />
@@ -42,16 +30,17 @@
             android:icon="@drawable/ic_favorite_24px"
             android:title="Medical Matters" />
         <item
-            android:id="@+id/music_menu"
-            android:icon="@drawable/ic_library_music_24px"
-            android:title="Relaxation Music" />
-        <item
             android:id="@+id/feedback_menu"
             android:icon="@drawable/ic_icon_alert_error_outline_24px"
             android:title="Give Feedback" />
         <item
+            android:id="@+id/massage_menu"
+            android:icon="@drawable/ic_ondemand_video_24px"
+            android:title="Massage Tutorial" />
+        <item
             android:id="@+id/actionLogout"
             android:icon="@drawable/ic_baseline_power_settings_new_24"
             android:title="Logout" />
+
     </group>
 </menu>

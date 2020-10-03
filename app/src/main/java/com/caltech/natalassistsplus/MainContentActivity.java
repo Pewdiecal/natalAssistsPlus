@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -24,8 +27,12 @@ public class MainContentActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ViewPager2 viewPager2;
+    private TextView usernameNavView;
+    private TextView roleNavView;
+    private ImageView profileImg;
     String username;
     String docID;
+    String role;
 
     // Make sure to be using androidx.appcompat.app.ActionBarDrawerToggle version.
     private ActionBarDrawerToggle drawerToggle;
@@ -40,10 +47,27 @@ public class MainContentActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         username = getIntent().getStringExtra("Username");
         docID = getIntent().getStringExtra("DocID");
+        role = getIntent().getStringExtra("Role");
 
         ViewPagerAdaper viewPagerAdaper = new ViewPagerAdaper(this);
         mDrawer = findViewById(R.id.drawer_layout);
         nvDrawer = findViewById(R.id.nav_view);
+
+        View headerView =  nvDrawer.getHeaderView(0);
+        usernameNavView = headerView.findViewById(R.id.usernameNavView);
+        roleNavView = headerView.findViewById(R.id.roleNavView);
+        profileImg = headerView.findViewById(R.id.profilePicNavView);
+        usernameNavView.setText(username);
+        roleNavView.setText(role);
+        nvDrawer.getMenu().clear();
+        if(role.equals("Mother")){
+            profileImg.setImageResource(R.drawable.ic_mother);
+            nvDrawer.inflateMenu(R.menu.drawer_view);
+        } else {
+            profileImg.setImageResource(R.drawable.ic_dad);
+            nvDrawer.inflateMenu(R.menu.menu_drawer_view_father);
+        }
+
         viewPager2 = findViewById(R.id.viewPager2);
         viewPager2.setAdapter(viewPagerAdaper);
         viewPager2.setUserInputEnabled(false);
@@ -106,6 +130,12 @@ public class MainContentActivity extends AppCompatActivity {
                         case R.id.feedback_menu:
                             viewPager2.setCurrentItem(11, false);
                             break;
+
+                        case R.id.actionLogout:
+                            Intent intent = new Intent(this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                            break;
                     }
                     menuItem.setChecked(true);
                     // Set action bar title
@@ -143,8 +173,6 @@ public class MainContentActivity extends AppCompatActivity {
             case 11:
                 getMenuInflater().inflate(R.menu.menu_feedback, menu);
                 break;
-
-
         }
         return true;
     }
@@ -161,8 +189,6 @@ public class MainContentActivity extends AppCompatActivity {
                 intent.putExtra("Username", username);
                 startActivity(intent);
                 break;
-
-            case R.id.actionFeedbackConfirm:
 
         }
         if (drawerToggle.onOptionsItemSelected(item)) {

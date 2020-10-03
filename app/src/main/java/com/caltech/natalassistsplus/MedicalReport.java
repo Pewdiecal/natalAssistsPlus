@@ -11,7 +11,6 @@ public class MedicalReport {
 
     public String babyOverallHealthStats;
     public String babyWeight;
-    public String toBeBorn;
     public String heartStats;
     public String brainStats;
     public String lungsStats;

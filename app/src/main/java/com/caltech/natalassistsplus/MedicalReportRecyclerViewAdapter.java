@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class MedicalReportRecyclerViewAdapter extends RecyclerView.Adapter<Medic
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.reportTitle.setText(medicalReports.get(position).reportTitle);
         holder.reportDate.setText(medicalReports.get(position).reportDate);
-        holder.share.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ReportDetailActivity.class);
@@ -48,13 +49,11 @@ public class MedicalReportRecyclerViewAdapter extends RecyclerView.Adapter<Medic
                 intent.putExtra("doctorAdvise", medicalReports.get(position).doctorAdvise);
                 intent.putExtra("babyOverallHealthStats", medicalReports.get(position).babyOverallHealthStats);
                 intent.putExtra("babyWeight", medicalReports.get(position).babyWeight);
-                intent.putExtra("toBeBorn", medicalReports.get(position).toBeBorn);
                 intent.putExtra("heartStats", medicalReports.get(position).heartStats);
                 intent.putExtra("brainStats", medicalReports.get(position).brainStats);
                 intent.putExtra("lungsStats", medicalReports.get(position).lungsStats);
                 intent.putExtra("liverStats", medicalReports.get(position).liverStats);
                 intent.putExtra("kidneysStats", medicalReports.get(position).kidneysStats);
-                intent.putExtra("intestineStats", medicalReports.get(position).intestineStats);
                 intent.putExtra("babyUltrasonicImg", medicalReports.get(position).babyUltrasonicImg);
                 v.getContext().startActivity(intent);
             }
@@ -70,12 +69,14 @@ public class MedicalReportRecyclerViewAdapter extends RecyclerView.Adapter<Medic
         public TextView reportTitle;
         public TextView reportDate;
         public ImageView share;
+        public CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             reportTitle = itemView.findViewById(R.id.medicHistoryTitleTxtRV);
             reportDate = itemView.findViewById(R.id.medicalDateTxtRV);
             share = itemView.findViewById(R.id.shareMedicalReportRV);
+            cardView = itemView.findViewById(R.id.medicalReportCardViewRV);
         }
     }
 

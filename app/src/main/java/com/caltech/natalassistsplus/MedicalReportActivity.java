@@ -1,10 +1,13 @@
 package com.caltech.natalassistsplus;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -14,6 +17,7 @@ import java.util.Date;
 
 public class MedicalReportActivity extends AppCompatActivity {
 
+    Toolbar toolbar;
     RecyclerView medicalReportRecyclerView;
     RecyclerView.LayoutManager medicalReportLayoutManager;
     MedicalReportRecyclerViewAdapter medicalReportRecyclerViewAdapter;
@@ -30,12 +34,17 @@ public class MedicalReportActivity extends AppCompatActivity {
         username = getIntent().getStringExtra("Username");
         docID = getIntent().getStringExtra("DocID");
 
+        toolbar = findViewById(R.id.medicalReportToolbar);
         medicalReportRecyclerView = findViewById(R.id.medicalReportRV);
         medicalReportLayoutManager = new LinearLayoutManager(this);
         medicalReportRecyclerViewAdapter = new MedicalReportRecyclerViewAdapter(medicalReports);
         medicalReportRecyclerView.setLayoutManager(medicalReportLayoutManager);
         medicalReportRecyclerView.setAdapter(medicalReportRecyclerViewAdapter);
         medicalReportRecyclerView.setHasFixedSize(true);
+
+        toolbar.setTitle("Medical Reports");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fetchData();
 
@@ -51,8 +60,8 @@ public class MedicalReportActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             isExists = false;
                             for(MedicalReport medicalReport:medicalReports){
-                                if(medicalReport.reportTitle.equals(document.getString("ReportTitle")) &&
-                                        medicalReport.reportDate.equals(document.getString("ReportDate"))){
+                                if(medicalReport.reportTitle.equals(document.getString("reportTitle")) &&
+                                        medicalReport.reportDate.equals(document.getString("reportDate"))){
                                     isExists = true;
                                     break;
                                 }
@@ -65,5 +74,11 @@ public class MedicalReportActivity extends AppCompatActivity {
                         medicalReportRecyclerViewAdapter.notifyDataSetChanged();
                     }
                 });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }
