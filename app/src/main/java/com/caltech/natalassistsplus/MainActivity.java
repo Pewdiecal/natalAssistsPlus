@@ -114,8 +114,18 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
                             for(int i = 0; i < task.getResult().size(); i++){
                                 if(task.getResult().getDocuments().get(i).getString("Username").equals(username) &&
                                         task.getResult().getDocuments().get(i).getString("Password").equals(pwd)){
-                                    logInUser(username, task.getResult().getDocuments().get(i).getId(),
-                                            task.getResult().getDocuments().get(i).getString("Role"));
+
+                                    if(task.getResult().getDocuments().get(i).getString("Role").equals("Father") &&
+                                    task.getResult().getDocuments().get(i).getString("MotherLink") != null){
+
+                                        getMotherDocID(username, task.getResult().getDocuments().get(i).getString("MotherLink"),
+                                                task.getResult().getDocuments().get(i).getString("Role"));
+
+                                    } else {
+                                        logInUser(username, task.getResult().getDocuments().get(i).getId(),
+                                                task.getResult().getDocuments().get(i).getString("Role"));
+                                    }
+
                                     break;
                                 }
                                 if(i == task.getResult().size() - 1){
@@ -129,6 +139,23 @@ FirebaseFirestore db = FirebaseFirestore.getInstance();
                     }
                 });
 
+    }
+
+    private void getMotherDocID(String username, String motherLink, String role){
+        db.collection("users")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for(int i = 0; i < task.getResult().size(); i++){
+                            if(task.getResult().getDocuments().get(i).getString("Username").equals(motherLink)){
+                                logInUser(username, task.getResult().getDocuments().get(i).getId(), role);
+                                break;
+                            }
+
+                        }
+                    }
+                });
     }
 
     private void logInUser(String username, String docID, String role){

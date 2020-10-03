@@ -164,13 +164,8 @@ public class MotherSetupActivity extends AppCompatActivity {
     }
 
     private void completeSignUp(String documentID){
-
-        Intent intent = new Intent(this, MainContentActivity.class);
-        intent.putExtra("Username", username);
-        intent.putExtra("DocID", documentID);
-        intent.putExtra("Role", role);
-        startActivity(intent);
         finish();
+        Toast.makeText(this, "Please sign in again.", Toast.LENGTH_LONG).show();
     }
 
     private boolean inputIsCorrect(){
