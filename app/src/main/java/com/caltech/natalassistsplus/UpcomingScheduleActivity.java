@@ -13,8 +13,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UpcomingScheduleActivity extends AppCompatActivity {
 
@@ -51,22 +54,37 @@ public class UpcomingScheduleActivity extends AppCompatActivity {
         upcomingScheduleRV.setAdapter(upcomingScheduleRecyclerViewAdapter);
 
         fetchData();
-
+        addData("Ultrasonic checkup", "30/9/2020", "Hospital Putrajaya", "12pm");
+        addData("Medical checkup", "10/11/2020", "Hospital Putrajaya", "9am");
+        addData("Clinical checkup", "12/12/2020", "Klinik Putrajaya", "10am");
     }
 
     private void fetchData() {
-        db.collection("users").document(docID)
+        db.collection("users").document(docID).collection("upcomingSchedule")
                 .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if(task.isSuccessful()){
                             schedules.clear();
-                            schedules.add(task.getResult().toObject(Schedule.class));
+                            for(int i = 0; i < task.getResult().getDocuments().size(); i++){
+                                schedules.add(task.getResult().getDocuments().get(i).toObject(Schedule.class));
+                            }
                             upcomingScheduleRecyclerViewAdapter.notifyDataSetChanged();
                         }
                     }
                 });
+    }
+
+    private void addData(String scheduleName, String date, String location, String time){
+        Map<String, Object> scheduleData = new HashMap<>();
+        scheduleData.put("scheduleName", scheduleName);
+        scheduleData.put("date", date);
+        scheduleData.put("location", location);
+        scheduleData.put("time", time);
+
+        db.collection("users").document(docID).collection("upcomingSchedule")
+                .add(scheduleData);
     }
 
     @Override
