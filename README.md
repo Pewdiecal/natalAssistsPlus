@@ -2,7 +2,7 @@
 ### Pregnancy assistant app for women
 
 <p align="center">
-  <img height="200px" src="https://firebasestorage.googleapis.com/v0/b/natalassist.appspot.com/o/plus.png?alt=media&token=6d0a214a-9f02-43c0-bcf1-7606f2f538f3">
+  <img height="200px" src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/plus.png?raw=true">
 </p>
 
 Women in pregnancy undergo 10 months of stressful and exhausting periods of carrying a baby. 
