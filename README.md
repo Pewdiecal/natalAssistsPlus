@@ -14,3 +14,26 @@ undergoing pregnancy period to manage their health and welfare.
 
 <h3 align="center"> Sample Screenshot of the App : </h3>
 
+<p align="center">
+  <img src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/login_activity.png?raw=true">
+  <img src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/role_activity.png?raw=true">
+</p>
+
+<p align="center">
+  <img src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/navigation_drawer%20-%20mother.png?raw=true">
+  <img src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/fragment_forum.png?raw=true">
+</p>
+
+<p align="center">
+  <img src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/fragment_info_center.png?raw=true">
+  <img src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/fragment_medical_matters.png?raw=true">
+</p>
+
+<p align="center">
+  <img src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/fragment_info_center.png?raw=true">
+  <img src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/fragment_mother_dashboard.png?raw=true">
+</p>
+
+<p align="center">
+  <img src="https://github.com/Pewdiecal/natalAssistsPlus/blob/master/natalAssistSS/medical_report_details_activity.png?raw=true">
+</p>
